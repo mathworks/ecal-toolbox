@@ -1,0 +1,43 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.18362.0",
+            "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/VC/Tools/MSVC/14.26.28801/bin/Hostx64/x64/cl.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-msvc-x64"
+        },
+        {
+            "name": "QNX",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/ProgramData/MATLAB/SupportPackages/R2021a/toolbox/slrealtime/target/supportpackage/qnx710/target/qnx7/**"
+            ],
+            "defines": [
+                "_QNX_SOURCE",
+                "__QNXNTO__",
+                "__QNX__",
+                "__unix__"
+            ],
+            "windowsSdkVersion": "10.0.18362.0",
+            "compilerPath": "C:/ProgramData/MATLAB/SupportPackages/R2021a/toolbox/slrealtime/target/supportpackage/qnx710/host/win64/x86_64/usr/bin/q++.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64",
+            "compilerArgs": [
+                "-stdlib=libstdc++",
+                "-Vgcc_ntox86_64"
+            ]
+        }
+    ],
+    "version": 4
+}

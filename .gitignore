@@ -1,0 +1,4 @@
+# List of untracked files to ignore
+work
+_build*
+_install*
