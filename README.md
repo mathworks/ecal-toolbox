@@ -15,7 +15,7 @@
 1. Initialize and check out Git submodules.
 2. Use the script `buildeCALlibs4QNX.cmd` to build eCAL libraries for QNX® on Windows.
 3. Copy the libraries from `_install_qnx/lib` to the target. For this purpose, create an `eCALutils` object and call the method `installLibsOnSpeedgoat`.
-4. Patch Fast-RTPS libraries with `patchFastRTPSLibs` from the class eCALutils to workaround the issue reported [here](https://external-git.mathworks.com/continental/ecal-toolbox/-/issues/19).
+4. Patch Fast-RTPS libraries with `patchFastRTPSLibs` from the class eCALutils.
 
 ## Setting up eCAL route on QNX®
 Run `setMulticast4ECAL`. Routes are restored to default after every target reboot. Therefore, you must add the eCAL route after booting the target, whenever you want to use eCAL with the external UDP communication.
