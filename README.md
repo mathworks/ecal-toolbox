@@ -1,4 +1,4 @@
-# eCAL - enhanced Communication Abstraction Layer [![View ecal-toolbox on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/92825-ecal-toolbox)
+# eCAL Toolbox for Simulink ![View ecal-toolbox on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)
 [eCAL](https://github.com/continental/ecal) - enhanced Communication Abstraction Layer enables scalable, high performance interprocess communication in heterogenous networks. It is based on a publish/subscribe pattern, designed for minimal latency and high data throughput, leveraging UDP or shared memory as the transport layer for best performance. Thanks to its lightweight C/C++ API, eCAL has been integrated into Simulink as an open-source toolbox for simulation on desktop and prototyping on Speedgoat’s real-time target computers, providing a flexible and high performant multi-node communication layer.
 
 ![LaneMarkerExample](images/LaneMarkerExample.png "Lane Marker Detection Model")
@@ -13,7 +13,10 @@
 # How to get started for real-time simulation with Simulink Real-Time™ on Speedgoat® target computers
 ## Build and preparation steps for QNX® RTOS
 1. Initialize and check out Git submodules.
-2. Use the script `buildeCALlibs4QNX.cmd` to build eCAL libraries for QNX® on Windows.
+2. Build eCAL libraries for QNX:
+    - Use the script `buildeCALlibs4QNX.cmd` to build eCAL libraries for QNX® on Windows.
+    - Use the script `buildeCALlibs4QNX.sh` to build eCAL libraries for QNX® on Linux.
+    - Call `buildeCALlibs4QNX` from the object `eCALutils` within MATLAB.
 3. Copy the libraries from `_install_qnx/lib` to the target. For this purpose, create an `eCALutils` object and call the method `installLibsOnSpeedgoat`.
 4. Patch Fast-RTPS libraries with `patchFastRTPSLibs` from the class eCALutils.
 
