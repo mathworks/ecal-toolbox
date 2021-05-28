@@ -38,7 +38,7 @@
 #endif
 
 #include <ecal/ecal.h>
-#include <ecal/msg/string/publisher.h>
+#include <ecal/msg/string/subscriber.h>
 
 #define PARAM_TOPIC_NAME_IDX        0 
 #define PARAM_TOPIC_TYPE_IDX        1 
@@ -182,9 +182,11 @@ static void mdlStart(SimStruct *S)
                 ssSetLocalErrorStatus(S, "Error initializing eCAL");
                 #endif
             }
-            const std::string model_path(ssGetPath(S));
-            eCAL::SetUnitName(model_path.substr(0, model_path.find('/',0)).c_str());
+            const std::string model_path(ssGetModelName(S)); 
+            eCAL::SetUnitName(model_path.c_str());
         }
+        
+    const std::string block_path(ssGetPath(S));
 
     ssGetPWork(S)[0] = new PWorkStruct;
     auto pwork_struct = static_cast<PWorkStruct *>(ssGetPWork(S)[0]);
@@ -193,10 +195,10 @@ static void mdlStart(SimStruct *S)
     pwork_struct->signal_type_variable = get_param<uint32_T>(S, PARAM_SIGNAL_TYPE_IDX) == 1 ? true : false;
     if(!pwork_struct->subscriber.Create(get_param<std::string>(S, PARAM_TOPIC_NAME_IDX), get_param<std::string>(S, PARAM_TOPIC_TYPE_IDX))) {
         #ifdef SIMULINK_REAL_TIME
-        LOG(error,0) << "Error creating eCAL subscriber";
+        LOG(error,0) << "Error creating eCAL subscriber for block " << block_path;
         exit(EXIT_FAILURE);
         #else
-        ssSetLocalErrorStatus(S, "Error creating eCAL subscriber");
+        ssSetLocalErrorStatus(S, "Error creating eCAL subscriber for block %s", block_path);
         #endif
     }
     }

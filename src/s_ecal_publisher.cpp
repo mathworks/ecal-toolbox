@@ -179,9 +179,11 @@ static void mdlStart(SimStruct *S)
                 ssSetLocalErrorStatus(S, "Error initializing eCAL");
                 #endif
             }
-            const std::string model_path(ssGetPath(S));
-            eCAL::SetUnitName(model_path.substr(0, model_path.find('/',0)).c_str());
+            const std::string model_path(ssGetModelName(S)); 
+            eCAL::SetUnitName(model_path.c_str());
         }
+        
+        const std::string block_path(ssGetPath(S));
     
         ssGetPWork(S)[0] = new PWorkStruct;
         auto pwork_struct = static_cast<PWorkStruct *>(ssGetPWork(S)[0]);
@@ -189,10 +191,10 @@ static void mdlStart(SimStruct *S)
         pwork_struct->signal_type_variable = get_param<uint32_T>(S, PARAM_SIGNAL_TYPE_IDX) == 1 ? true : false;
         if(!pwork_struct->publisher.Create(get_param<std::string>(S, PARAM_TOPIC_NAME_IDX), get_param<std::string>(S, PARAM_TOPIC_TYPE_IDX))) {
             #ifdef SIMULINK_REAL_TIME
-            LOG(error,0) << "Error creating eCAL publisher";
+            LOG(error,0) << "Error creating eCAL publisher for block " << block_path;
             exit(EXIT_FAILURE);
             #else
-            ssSetLocalErrorStatus(S, "Error creating eCAL publisher");
+            ssSetLocalErrorStatus(S, "Error creating eCAL publisher for block %s", block_path);
             #endif
         }
     }
