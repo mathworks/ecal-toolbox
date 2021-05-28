@@ -1,4 +1,4 @@
-# eCAL Toolbox for Simulink [![View ecal-toolbox on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/92825-ecal-toolbox)
+# eCAL Toolbox for Simulink ![View ecal-toolbox on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)
 [eCAL](https://github.com/continental/ecal) - enhanced Communication Abstraction Layer enables scalable, high performance interprocess communication in heterogenous networks. It is based on a publish/subscribe pattern, designed for minimal latency and high data throughput, leveraging UDP or shared memory as the transport layer for best performance. Thanks to its lightweight C/C++ API, eCAL has been integrated into Simulink as an open-source toolbox for simulation on desktop and prototyping on Speedgoat’s real-time target computers, providing a flexible and high performant multi-node communication layer.
 
 ![LaneMarkerExample](images/LaneMarkerExample.png "Lane Marker Detection Model")
@@ -6,7 +6,10 @@
 # How to get started on desktop
 1. Install the latest eCAL Release availabe for your OS from [here](https://github.com/continental/ecal/releases).
 2. To leverage UDP, please set your multicast routes as shown [here](https://continental.github.io/ecal/getting_started/cloud.html#getting-started-cloud).
-3. Open eCAL Monitor and run the example model.
+3. Open eCAL Monitor.
+4. Start a first MATLAB instance and run the model `ecal_helloworld_snd`.
+5. Start a second MATLAB instance and run the model `ecal_helloworld_rec`.
+Please notice that the message counter of eCAL subscriber only increases if you run a matching publisher which has the same topic name and is not part of the same process.
 
 ![SimulinkBlockseteCAL](images/SimulinkBlockseteCAL.png "Simulink Blockset for eCAL")
 
