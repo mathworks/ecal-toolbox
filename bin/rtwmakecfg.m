@@ -7,6 +7,9 @@ sysTarget = get_param(bdroot, 'RTWSystemTargetFile');
 
 ecalLibraryFiles = {'ecal_core.','ecal_core_c.','protobuf.','protobuf-lite.'};
 
+makeInfo.sourcePath	= fullfile(rootPath,'src');
+makeInfo.sources = {'s_ecal_common.cpp'};
+
 switch sysTarget
     case 'slrealtime.tlc'
         makeInfo.includePath = fullfile(rootPath,'_install_qnx/include');

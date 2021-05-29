@@ -40,6 +40,8 @@
 #include <ecal/ecal.h>
 #include <ecal/msg/string/publisher.h>
 
+#include "s_ecal_common.h"
+
 #define PARAM_TOPIC_NAME_IDX        0 
 #define PARAM_TOPIC_TYPE_IDX        1 
 #define PARAM_SIGNAL_TYPE_IDX       2
@@ -169,19 +171,7 @@ static void mdlInitializeSampleTimes(SimStruct *S)
 static void mdlStart(SimStruct *S)
 {
     if(!ssRTWGenIsCodeGen(S) && !ssIsExternalSim(S)) {
-        if(!eCAL::IsInitialized())
-        {
-            if(eCAL::Initialize()) {
-                #ifdef SIMULINK_REAL_TIME
-                LOG(error,0) << "Error initializing eCAL";
-                exit(EXIT_FAILURE);
-                #else
-                ssSetLocalErrorStatus(S, "Error initializing eCAL");
-                #endif
-            }
-            const std::string model_path(ssGetModelName(S)); 
-            eCAL::SetUnitName(model_path.c_str());
-        }
+        s_eCAL::Initialize(S);
         
         const std::string block_path(ssGetPath(S));
     
@@ -190,15 +180,15 @@ static void mdlStart(SimStruct *S)
         
         pwork_struct->signal_type_variable = get_param<uint32_T>(S, PARAM_SIGNAL_TYPE_IDX) == 1 ? true : false;
         if(!pwork_struct->publisher.Create(get_param<std::string>(S, PARAM_TOPIC_NAME_IDX), get_param<std::string>(S, PARAM_TOPIC_TYPE_IDX))) {
-            #ifdef SIMULINK_REAL_TIME
-            LOG(error,0) << "Error creating eCAL publisher for block " << block_path;
-            exit(EXIT_FAILURE);
-            #else
-            ssSetLocalErrorStatus(S, "Error creating eCAL publisher for block %s", block_path);
-            #endif
+                #ifdef SIMULINK_REAL_TIME
+                LOG(error,0) << "Error creating eCAL publisher for block " << block_path;
+                exit(EXIT_FAILURE);
+                #else
+                ssSetLocalErrorStatus(S, "Error creating eCAL publisher for block %s", block_path);
+                #endif
+            }
         }
     }
-}
 #endif /*  MDL_START */
 
 
@@ -234,16 +224,7 @@ static void mdlTerminate(SimStruct *S)
     auto pwork_struct = static_cast<PWorkStruct *>(ssGetPWork(S)[0]);
     delete pwork_struct;
 
-    if(eCAL::IsInitialized()) {
-        if(eCAL::Finalize()) {
-            #ifdef SIMULINK_REAL_TIME
-            LOG(error,0) << "Error finalizing eCAL";
-            exit(EXIT_FAILURE);
-            #else
-            ssSetLocalErrorStatus(S, "Error finalizing eCAL");
-            #endif
-        }
-    }
+    s_eCAL::Finalize(S);
 }
 
 

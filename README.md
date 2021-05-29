@@ -9,6 +9,7 @@
 3. Open eCAL Monitor.
 4. Start a first MATLAB instance and run the model `ecal_helloworld_snd`.
 5. Start a second MATLAB instance and run the model `ecal_helloworld_rec`.
+
 Please notice that the message counter of eCAL subscriber only increases if you run a matching publisher which has the same topic name and is not part of the same process.
 
 ![SimulinkBlockseteCAL](images/SimulinkBlockseteCAL.png "Simulink Blockset for eCAL")
