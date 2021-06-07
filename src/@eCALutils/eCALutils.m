@@ -88,6 +88,13 @@ classdef eCALutils < handle
             if nargin>1
                 obj.TgObject = tgObj;
             end
+
+            % Try to connect to target
+            try
+                obj.TgObject.connect;
+            catch ME
+                disp(ME.message);
+            end
             
             % Initialize SSH root object
             if obj.TgObject.isConnected
@@ -232,11 +239,11 @@ classdef eCALutils < handle
         end
         
         function patchFastRTPSLibs(obj)
-            if ~isempty(obj.ListECALLibFiles)
+            if ~isempty(obj.listPatchFastRTPSLibs)
                 obj.TgObject.executeCommand('rm /usr/local/lib/libfast*', obj.rootssh);
-                for i = 1:numel(obj.ListECALLibFiles)
-                    obj.copyFileToTarget(fullfile(obj.ListECALLibFiles(i).folder,obj.ListECALLibFiles(i).name),...
-                        ['/usr/local/lib/',obj.ListECALLibFiles(i).name]);
+                for i = 1:numel(obj.listPatchFastRTPSLibs)
+                    obj.copyFileToTarget(fullfile(obj.listPatchFastRTPSLibs(i).folder,obj.listPatchFastRTPSLibs(i).name),...
+                        ['/usr/local/lib/',obj.listPatchFastRTPSLibs(i).name]);
                 end
             else
                 disp('Patch Fast-RTPS libraries is not required for this SLRT version.');
