@@ -1,5 +1,8 @@
 @echo off
 
+rem Change directory to the directory where this file is
+cd /D "%~dp0"
+
 echo Creating QNX environment variables... 
 call %ALLUSERSPROFILE%"\MATLAB\SupportPackages\R2021a\toolbox\slrealtime\target\supportpackage\qnx710\qnxsdp-env.bat"
 
