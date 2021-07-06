@@ -197,6 +197,11 @@ classdef eCALutils < handle
                     obj.eCALLibsPath = '';
                 end
                 if ~isempty(obj.ListECALLibFiles)
+                    disp('Removing existing eCAL libraries from the target. Please wait...');
+                    obj.TgObject.executeCommand('rm /usr/lib/libecal*', obj.rootssh);
+                    obj.TgObject.executeCommand('rm /usr/lib/libprotobuf*', obj.rootssh);
+                    disp('Old eCAL libraries successfully removed.');
+                    
                     disp('Installing eCAL libraries on the target. Please wait...');
                     numLibFiles = numel(obj.ListECALLibFiles);
                     for i = 1:numLibFiles
@@ -217,6 +222,7 @@ classdef eCALutils < handle
             if ~obj.MulticastStatus                
                 obj.TgObject.executeCommand(sprintf('route add -net %s -netmask 255.255.255.0 -iface %s -mtu 1000',...
                     obj.MulticastIP,obj.TgObject.TargetSettings.address), obj.rootssh);
+                disp('Multicast enabled on target.');
             end
         end
         
