@@ -146,6 +146,7 @@ static void mdlInitializeSizes(SimStruct *S)
     ssSetOperatingPointCompliance(S, USE_DEFAULT_OPERATING_POINT);
     
     ssSetOptions(S, SS_OPTION_EXCEPTION_FREE_CODE);
+    ssSetRuntimeThreadSafetyCompliance(S, RUNTIME_THREAD_SAFETY_COMPLIANCE_TRUE);
 }
 
 /* Function: mdlInitializeSampleTimes =========================================
