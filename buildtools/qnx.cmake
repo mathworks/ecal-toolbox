@@ -3,6 +3,9 @@ set(CMAKE_SYSTEM_NAME QNX)
 set(arch gcc_ntox86_64)
 set(ntoarch x86_64)
 
+set(CMAKE_SIZEOF_VOID_P 8)
+set(CMAKE_SYSTEM_PROCESSOR ${ntoarch})
+
 set(CMAKE_C_COMPILER qcc)
 set(CMAKE_C_COMPILER_TARGET ${arch})
 
