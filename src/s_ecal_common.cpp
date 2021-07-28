@@ -1,12 +1,3 @@
-#include "simstruc.h"
-
-// Include Logger for Simulink Real-Time
-#ifdef SIMULINK_REAL_TIME
-#include <Logger.hpp>
-#endif
-
-#include <ecal/ecal.h>
-
 #include "s_ecal_common.h"
 
 namespace s_eCAL {

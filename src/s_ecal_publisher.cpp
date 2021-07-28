@@ -30,17 +30,8 @@
  *
  */
 
-#include <string>
-
-// Include Logger for Simulink Real-Time
-#ifdef SIMULINK_REAL_TIME
-#include <Logger.hpp>
-#endif
-
-#include <ecal/ecal.h>
-#include <ecal/msg/string/publisher.h>
-
 #include "s_ecal_common.h"
+#include "ecal/msg/string/publisher.h"
 
 #define PARAM_TOPIC_NAME_IDX        0 
 #define PARAM_TOPIC_TYPE_IDX        1 
