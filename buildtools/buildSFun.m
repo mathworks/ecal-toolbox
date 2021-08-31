@@ -20,25 +20,21 @@ if isfolder(ecalPath)
     end
 elseif ~isempty(getenv('ECAL_HOME'))
     ecalPath = getenv('ECAL_HOME');
+elseif isunix && isfile('/lib/x86_64-linux-gnu/libecal_core.so')
+    ecalPath = '/';
 else
     error('eCAL binaries were not found in the current system. Please install eCAL on this system and add it to the path or call buildSFun(<pathToEcal>).');
 end
 
-% Get file extension
-if ismac
-    libExt = '.a';
-elseif isunix
-    libExt = '.a';
-elseif ispc
-    libExt = '.lib';
-else
-    error('Platform not supported');
-end
-
 % Add include and libraries
-incPath{end+1} = fullfile(ecalPath,'include');
-libPath{end+1} = fullfile(ecalPath,['lib\ecal_core',libExt]);
-libPath{end+1} = fullfile(ecalPath,['lib\ecal_proto',libExt]);
+if ispc
+    incPath{end+1} = fullfile(ecalPath,'include');
+    libPath{end+1} = fullfile(ecalPath,'lib\ecal_core.lib');
+    libPath{end+1} = fullfile(ecalPath,'lib\ecal_proto.lib');
+else
+    incPath{end+1} = fullfile(ecalPath,'usr/include');
+    libPath{end+1} = fullfile(ecalPath,'lib/x86_64-linux-gnu/libecal_core.so');
+end
 
 incPath = cellfun(@(path) sprintf('-I%s',path), incPath, 'UniformOutput', false);
 
