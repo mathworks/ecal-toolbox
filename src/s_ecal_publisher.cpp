@@ -165,19 +165,21 @@ static void mdlStart(SimStruct *S)
     if(!ssRTWGenIsCodeGen(S) && !ssIsExternalSim(S)) {
         s_eCAL::Initialize(S);
         
-        const std::string block_path(ssGetPath(S));
+        const char_T *block_path(ssGetPath(S));
     
         ssGetPWork(S)[0] = new PWorkStruct;
         auto pwork_struct = static_cast<PWorkStruct *>(ssGetPWork(S)[0]);
         
         pwork_struct->signal_type_variable = get_param<uint32_T>(S, PARAM_SIGNAL_TYPE_IDX) == 1 ? true : false;
         if(!pwork_struct->publisher.Create(get_param<std::string>(S, PARAM_TOPIC_NAME_IDX), get_param<std::string>(S, PARAM_TOPIC_TYPE_IDX))) {
-                #ifdef SIMULINK_REAL_TIME
-                LOG(error,0) << "Error creating eCAL publisher for block " << block_path;
-                exit(EXIT_FAILURE);
-                #else
-                ssSetLocalErrorStatus(S, "Error creating eCAL publisher for block %s", block_path);
-                #endif
+            static char errormsg[200];
+            sprintf(errormsg, "Error creating eCAL publisher for block %s\n", block_path);
+            #ifdef SIMULINK_REAL_TIME
+            LOG(error,0) << errormsg;
+            exit(EXIT_FAILURE);
+            #else
+            ssSetLocalErrorStatus(S, errormsg);
+            #endif
             }
         }
     }

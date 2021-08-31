@@ -168,7 +168,7 @@ static void mdlStart(SimStruct *S)
     if(!ssRTWGenIsCodeGen(S) && !ssIsExternalSim(S)) {
         s_eCAL::Initialize(S);
         
-        const std::string block_path(ssGetPath(S));
+        const char_T *block_path(ssGetPath(S));
 
         ssGetPWork(S)[0] = new PWorkStruct;
         auto pwork_struct = static_cast<PWorkStruct *>(ssGetPWork(S)[0]);
@@ -176,11 +176,13 @@ static void mdlStart(SimStruct *S)
         pwork_struct->max_buffer_size = get_param<uint32_T>(S, PARAM_MAX_BUFFER_SIZE_IDX);
         pwork_struct->signal_type_variable = get_param<uint32_T>(S, PARAM_SIGNAL_TYPE_IDX) == 1 ? true : false;
         if(!pwork_struct->subscriber.Create(get_param<std::string>(S, PARAM_TOPIC_NAME_IDX), get_param<std::string>(S, PARAM_TOPIC_TYPE_IDX))) {
+            static char errormsg[200];
+            sprintf(errormsg, "Error creating eCAL subscriber for block %s\n", block_path);
             #ifdef SIMULINK_REAL_TIME
-            LOG(error,0) << "Error creating eCAL subscriber for block " << block_path;
+            LOG(error,0) << errormsg;
             exit(EXIT_FAILURE);
             #else
-            ssSetLocalErrorStatus(S, "Error creating eCAL subscriber for block %s", block_path);
+            ssSetLocalErrorStatus(S, errormsg);
             #endif
         }
     }
@@ -215,7 +217,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         }
         else
         {
-            static char warn_msg[100];
+            static char warn_msg[200];
             sprintf(warn_msg,"Received payload size of %lu bytes exceeds maximum buffer size. Truncating to %u bytes.", buffer.size(), pwork_struct->max_buffer_size);
             #ifdef SIMULINK_REAL_TIME
             LOG(warning,0) << warn_msg;
