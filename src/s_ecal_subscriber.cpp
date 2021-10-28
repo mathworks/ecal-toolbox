@@ -176,14 +176,7 @@ static void mdlStart(SimStruct *S)
         pwork_struct->max_buffer_size = get_param<uint32_T>(S, PARAM_MAX_BUFFER_SIZE_IDX);
         pwork_struct->signal_type_variable = get_param<uint32_T>(S, PARAM_SIGNAL_TYPE_IDX) == 1 ? true : false;
         if(!pwork_struct->subscriber.Create(get_param<std::string>(S, PARAM_TOPIC_NAME_IDX), get_param<std::string>(S, PARAM_TOPIC_TYPE_IDX))) {
-            static char errormsg[200];
-            sprintf(errormsg, "Error creating eCAL subscriber for block %s\n", block_path);
-            #ifdef SIMULINK_REAL_TIME
-            LOG(error,0) << errormsg;
-            exit(EXIT_FAILURE);
-            #else
-            ssSetLocalErrorStatus(S, errormsg);
-            #endif
+            s_eCAL::errorLog(S, "Error creating eCAL subscriber for block %s.\n", block_path);
         }
     }
 }

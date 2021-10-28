@@ -2,52 +2,79 @@
 
 namespace s_eCAL {
 
-void Initialize (SimStruct *S) {
-    const std::string model_path(ssGetModelName(ssGetRootSS(S)));
+    int infoLog(const char_T *msg, ...) {
+
+        char str[1024] = "";
+        va_list args;
+        va_start(args, msg);
+        vsprintf(str, msg, args);
+        va_end(args);
+
+        #ifdef SIMULINK_REAL_TIME
+        LOG(info,0) << str;
+        #else
+        ssPrintf(str);
+        #endif
+
+        return 0;
+    }
+
+    void warningLog(SimStruct *S, const char_T *msg, ...) {
+
+        char str[1024] = "";
+        va_list args;
+        va_start(args, msg);
+        vsprintf(str, msg, args);
+        va_end(args);
+
+        #ifdef SIMULINK_REAL_TIME
+        LOG(warning,0) << str;
+        #else
+        ssWarning(S, str);
+        #endif
+    }
+
+    void errorLog(SimStruct *S, const char_T *msg, ...) {
+
+        char str[1024] = "";
+        va_list args;
+        va_start(args, msg);
+        vsprintf(str, msg, args);
+        va_end(args);
+
+        #ifdef SIMULINK_REAL_TIME
+        LOG(error,0) << str;
+        exit(EXIT_FAILURE);
+        #else
+        ssSetErrorStatus(S, str);
+        #endif
+    }
+
+
+    void Initialize (SimStruct *S) {
+        const std::string model_path(ssGetModelName(ssGetRootSS(S)));
         if(!eCAL::IsInitialized()) {
             if(eCAL::Initialize(0, nullptr, model_path.c_str())) {
-                #ifdef SIMULINK_REAL_TIME
-                LOG(error,0) << "Error initializing eCAL";
-                exit(EXIT_FAILURE);
-                #else
-                ssSetLocalErrorStatus(S, "Error initializing eCAL");
-                #endif
+                s_eCAL::errorLog(S, "Error initializing eCAL.\n");
             } else {
-                static char startmsg[100];
-                sprintf(startmsg,"eCAL %s initialized\n",eCAL::GetVersionString());
-                #ifdef SIMULINK_REAL_TIME
-                LOG(info,0) << startmsg;
-                #else
-                ssPrintf(startmsg);
-                #endif
+                s_eCAL::infoLog("eCAL %s initialized.\n",eCAL::GetVersionString());
             }
         } else {
             const std::string ecalUnitName(eCAL::Process::GetUnitName());
             if(ecalUnitName != model_path) {
-                static char warningmsg[300];
-                sprintf(warningmsg,"eCAL has already been initialized at %s. Please start another MATLAB instance to use eCAL on %s.",ecalUnitName.c_str(),model_path.c_str());
-                ssWarning(S, warningmsg);
+                s_eCAL::warningLog(S, "eCAL has already been initialized at %s. Please start another MATLAB instance to use eCAL on %s.\n",ecalUnitName.c_str(),model_path.c_str());
             }
         }
-}
+    }
 
-void Finalize (SimStruct *S) {
-if(eCAL::IsInitialized()) {
-        if(eCAL::Finalize()) {
-            #ifdef SIMULINK_REAL_TIME
-            LOG(error,0) << "Error finalizing eCAL";
-            exit(EXIT_FAILURE);
-            #else
-            ssSetLocalErrorStatus(S, "Error finalizing eCAL");
-            #endif
-        } else {
-            #ifdef SIMULINK_REAL_TIME
-            LOG(info,0) << "eCAL finalized";
-            #else
-            ssPrintf("eCAL finalized");
-            #endif
+    void Finalize (SimStruct *S) {
+        if(eCAL::IsInitialized()) {
+            if(eCAL::Finalize()) {
+                s_eCAL::errorLog(S, "Error finalizing eCAL.\n");
+            } else {
+                s_eCAL::infoLog("eCAL finalized.\n");
+            }
         }
     }
-}
 
 }

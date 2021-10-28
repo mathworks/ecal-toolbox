@@ -12,4 +12,8 @@ namespace s_eCAL {
 void Initialize (SimStruct *S);
 void Finalize (SimStruct *S);
 
+int infoLog(const char_T *msg, ...);
+void warningLog(SimStruct *S, const char_T *msg, ...);
+void errorLog(SimStruct *S, const char_T *msg, ...);
+
 }
