@@ -197,11 +197,13 @@ classdef eCALutils < handle
                     obj.eCALLibsPath = '';
                 end
                 if ~isempty(obj.ListECALLibFiles)
-                    disp('Removing existing eCAL libraries from the target. Please wait...');
-                    obj.TgObject.executeCommand('rm /usr/lib/libecal*', obj.rootssh);
-                    obj.TgObject.executeCommand('rm /usr/lib/libprotobuf*', obj.rootssh);
-                    disp('Old eCAL libraries successfully removed.');
-                    
+                    if obj.iseCALinstalled
+                        disp('Removing existing eCAL libraries from the target. Please wait...');
+                        obj.TgObject.executeCommand('rm /usr/lib/libecal*', obj.rootssh);
+                        obj.TgObject.executeCommand('rm /usr/lib/libprotobuf*', obj.rootssh);
+                        disp('Old eCAL libraries successfully removed.');
+                    end
+
                     disp('Installing eCAL libraries on the target. Please wait...');
                     numLibFiles = numel(obj.ListECALLibFiles);
                     for i = 1:numLibFiles
