@@ -1,3 +1,4 @@
+#include <cstdarg>
 #include "simstruc.h"
 
 // Include Logger for Simulink Real-Time
