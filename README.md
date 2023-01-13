@@ -4,8 +4,8 @@
 ![LaneMarkerExample](images/LaneMarkerExample.png "Lane Marker Detection Model")
 
 # How to get started on desktop
-1. Install the latest eCAL Release availabe for your OS from [here](https://github.com/continental/ecal/releases).
-2. To leverage UDP, please set your multicast routes as shown [here](https://continental.github.io/ecal/getting_started/cloud.html#getting-started-cloud).
+1. Install the latest eCAL Release availabe for your OS from [here](https://github.com/eclipse-ecal/ecal/releases).
+2. To leverage UDP, please set your multicast routes as shown [here](https://eclipse-ecal.github.io/ecal/getting_started/cloud.html).
 3. Open eCAL Monitor.
 4. Start a first MATLAB instance and run the model `ecal_helloworld_snd`.
 5. Start a second MATLAB instance and run the model `ecal_helloworld_rec`.
