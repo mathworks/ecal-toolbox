@@ -16,3 +16,6 @@ set(CMAKE_SYSROOT $ENV{QNX_TARGET})
 
 # Need to explicit set _QNX_SOURCE for workaround in Google Protobuf setting CXX_EXTENSIONS to OFF
 set(CMAKE_CXX_FLAGS_INIT "-D_QNX_SOURCE")
+
+# Add additional paths
+set(CMAKE_PREFIX_PATH ${CMAKE_SYSROOT}/${ntoarch}; ${CMAKE_SYSROOT}/${ntoarch}/usr)
