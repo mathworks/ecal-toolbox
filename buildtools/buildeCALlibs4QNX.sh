@@ -4,7 +4,7 @@
 cd "$(dirname "$0")"
 
 # Define MATLAB version
-MATLABVER=R2021a
+MATLABVER=R2022b
 
 echo Creating QNX environment variables... 
 source /home/$USER/Documents/MATLAB/SupportPackages/$MATLABVER/toolbox/slrealtime/target/supportpackage/qnx710/qnxsdp-env.sh
