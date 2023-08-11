@@ -1,5 +1,5 @@
 # eCAL Toolbox for Simulink [![View ecal-toolbox on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/92825-ecal-toolbox)
-[eCAL](https://github.com/continental/ecal) - enhanced Communication Abstraction Layer enables scalable, high performance interprocess communication in heterogenous networks. It is based on a publish/subscribe pattern, designed for minimal latency and high data throughput, leveraging UDP or shared memory as the transport layer for best performance. Thanks to its lightweight C/C++ API, eCAL has been integrated into Simulink as an open-source toolbox for simulation on desktop and prototyping on Speedgoat’s real-time target computers, providing a flexible and high performant multi-node communication layer.
+[eCAL](https://github.com/eclipse-ecal/ecal) - enhanced Communication Abstraction Layer enables scalable, high performance interprocess communication in heterogenous networks. It is based on a publish/subscribe pattern, designed for minimal latency and high data throughput, leveraging UDP or shared memory as the transport layer for best performance. Thanks to its lightweight C/C++ API, eCAL has been integrated into Simulink as an open-source toolbox for simulation on desktop and prototyping on Speedgoat’s real-time target computers, providing a flexible and high performant multi-node communication layer.
 
 ![LaneMarkerExample](images/LaneMarkerExample.png "Lane Marker Detection Model")
 
@@ -38,4 +38,4 @@ Open and use the "Run on Target" button on the Real-Time ribbon to build, deploy
 Don’t forget to set your multicast routes and make sure your hostname resolution works on all machines!
 
 ## Getting started
-Please read the following documentation about [UDP Multicast routes](https://continental.github.io/ecal/getting_started/cloud.html#getting-started-cloud) at [eCAL Documentation](https://continental.github.io/ecal/index.html).
+Please read the following documentation about [UDP Multicast routes](https://eclipse-ecal.github.io/ecal/getting_started/cloud.html#getting-started-cloud) at [eCAL Documentation](https://eclipse-ecal.github.io/ecal/index.html).

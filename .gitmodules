@@ -1,3 +1,3 @@
 [submodule "modules/ecal"]
 	path = modules/ecal
-	url = https://github.com/continental/ecal.git
+	url = https://github.com/eclipse-ecal/ecal
