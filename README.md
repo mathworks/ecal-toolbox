@@ -3,6 +3,8 @@
 
 ![LaneMarkerExample](images/LaneMarkerExample.png "Lane Marker Detection Model")
 
+Please watch a recording presentation of the original creators of eCAL at the MATLAB EXPO 2021 in this [link](https://www.mathworks.com/videos/ecal-toolbox-for-simulink-1622031597316.html) for more information.
+
 # How to get started on desktop
 1. Install the latest eCAL Release availabe for your OS from [here](https://github.com/eclipse-ecal/ecal/releases).
 2. To leverage UDP, please set your multicast routes as shown [here](https://eclipse-ecal.github.io/ecal/getting_started/cloud.html).
